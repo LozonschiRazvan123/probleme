@@ -53,6 +53,7 @@ namespace probleme
             catch(Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message.ToString());
+                connection.Close();
             }
         }
         private void carShow()
@@ -77,6 +78,94 @@ namespace probleme
                 currentLine = dataset.Tables["Cars"].Rows.Count - 1;
             else currentLine--;
             carShow();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                connection.Open();
+                OleDbCommand command = new OleDbCommand();
+                command.CommandText = "INSERT INTO Masini (codMasina, denMasina, Marca, Pret) VALUES (@codMasina, @denMasina, @Marca, @Pret)";
+                command.Connection = connection;
+                command.Parameters.Clear();
+                command.Parameters.AddWithValue("codMasina", textBox1.Text);
+                command.Parameters.AddWithValue("denMasina", textBox2.Text);
+                command.Parameters.AddWithValue("Marca", textBox3.Text);
+                command.Parameters.AddWithValue("Pret", int.Parse(textBox4.Text));
+                command.ExecuteNonQuery();
+                MessageBox.Show("Cars was deleted successfully!");
+                
+                connection.Close();
+                loadData();
+                currentLine --;
+                carShow();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message.ToString());
+                connection.Close();
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
+            textBox4.Text = "";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                connection.Open();
+                OleDbCommand command = new OleDbCommand();
+                command.CommandText = "DELETE * FROM Masini WHERE id=@id";
+                command.Connection = connection;
+                command.Parameters.Clear();
+                command.Parameters.AddWithValue("codMasina", int.Parse(textBox1.Text));
+                command.ExecuteNonQuery();
+                MessageBox.Show("Cars was deleted111 successfully!");
+
+                connection.Close();
+                loadData();
+                currentLine = dataset.Tables["Cars"].Rows.Count - 1;
+                carShow();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message.ToString());
+                connection.Close();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                connection.Open();
+                OleDbCommand command = new OleDbCommand();
+                command.CommandText = "UPDATE Masini SET denMasina=@d, Marca=@m, Pret=@p WHERE codMasina=@c";
+                command.Connection = connection;
+                command.Parameters.Clear();
+                command.Parameters.AddWithValue("@c", int.Parse(textBox1.Text));
+                command.Parameters.AddWithValue("@d", textBox2.Text);
+                command.Parameters.AddWithValue("@m", textBox3.Text);
+                command.Parameters.AddWithValue("@p", int.Parse(textBox4.Text));
+                command.ExecuteNonQuery();
+                MessageBox.Show("Cars was updated successfully!");
+
+                connection.Close();
+                loadData();
+                carShow();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message.ToString());
+                connection.Close();
+            }
         }
     }
 }
