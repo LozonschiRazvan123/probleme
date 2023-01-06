@@ -62,6 +62,7 @@ namespace probleme
             textBox2.Text = dataset.Tables["Cars"].Rows[currentLine].ItemArray[1].ToString();
             textBox3.Text = dataset.Tables["Cars"].Rows[currentLine].ItemArray[2].ToString();
             textBox4.Text = dataset.Tables["Cars"].Rows[currentLine].ItemArray[3].ToString();
+            textBox5.Text = cota_de_asigurare(double.Parse(dataset.Tables["Cars"].Rows[currentLine].ItemArray[3].ToString())).ToString();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -94,11 +95,11 @@ namespace probleme
                 command.Parameters.AddWithValue("Marca", textBox3.Text);
                 command.Parameters.AddWithValue("Pret", int.Parse(textBox4.Text));
                 command.ExecuteNonQuery();
-                MessageBox.Show("Cars was deleted successfully!");
+                MessageBox.Show("Cars was added successfully!");
                 
                 connection.Close();
                 loadData();
-                currentLine --;
+                currentLine = dataset.Tables["Cars"].Rows.Count-1;
                 carShow();
             }
             catch(Exception ex)
@@ -122,16 +123,16 @@ namespace probleme
             {
                 connection.Open();
                 OleDbCommand command = new OleDbCommand();
-                command.CommandText = "DELETE * FROM Masini WHERE id=@id";
+                command.CommandText = "DELETE FROM Masini WHERE codMasina=@c";
                 command.Connection = connection;
                 command.Parameters.Clear();
                 command.Parameters.AddWithValue("codMasina", int.Parse(textBox1.Text));
                 command.ExecuteNonQuery();
-                MessageBox.Show("Cars was deleted111 successfully!");
-
+                MessageBox.Show("Cars was deleted successfully!");
+                currentLine = dataset.Tables["Cars"].Rows.Count - 1;
                 connection.Close();
                 loadData();
-                currentLine = dataset.Tables["Cars"].Rows.Count - 1;
+                
                 carShow();
             }
             catch (Exception ex)
@@ -147,13 +148,16 @@ namespace probleme
             {
                 connection.Open();
                 OleDbCommand command = new OleDbCommand();
-                command.CommandText = "UPDATE Masini SET denMasina=@d, Marca=@m, Pret=@p WHERE codMasina=@c";
+                command.CommandText = "UPDATE Masini SET denMasina=?, Marca=?, Pret=? WHERE codMasina=?";
                 command.Connection = connection;
                 command.Parameters.Clear();
-                command.Parameters.AddWithValue("@c", int.Parse(textBox1.Text));
-                command.Parameters.AddWithValue("@d", textBox2.Text);
-                command.Parameters.AddWithValue("@m", textBox3.Text);
-                command.Parameters.AddWithValue("@p", int.Parse(textBox4.Text));
+
+                
+                command.Parameters.AddWithValue("denMasina", textBox2.Text);
+                command.Parameters.AddWithValue("Marca", textBox3.Text);
+                command.Parameters.AddWithValue("Pret", int.Parse(textBox4.Text));
+                command.Parameters.AddWithValue("codMasina", int.Parse(textBox1.Text));
+
                 command.ExecuteNonQuery();
                 MessageBox.Show("Cars was updated successfully!");
 
@@ -166,6 +170,26 @@ namespace probleme
                 MessageBox.Show("Error: " + ex.Message.ToString());
                 connection.Close();
             }
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+        public double cota_de_asigurare(double x)
+        {
+            if (x <= 20000)
+                return x * 0.03;
+            else if (x <= 40000)
+                return x * 0.35;
+            else if (x <= 60000)
+                return x * 0.5;
+            else return x * 0.6;
+        }
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            //double val = double.Parse(dataset.Tables["Cars"].Rows[currentLine].ItemArray[3].ToString());
+            //textBox5.Text = cota_de_asigurare(val).ToString();
         }
     }
 }
