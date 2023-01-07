@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace subprogram
 {
-    public partial class Form1 : Form
+    public partial class Form2 : Form
     {
-        public Form1()
+        public Form2()
         {
             InitializeComponent();
         }
@@ -107,13 +107,12 @@ namespace subprogram
 
         private void form1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-              Form1 newForm = new Form1();
-              newForm.Show();
+
         }
 
         private void form2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Form2 newForm = new Form2();
         }
     }
 }

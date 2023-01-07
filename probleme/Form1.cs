@@ -40,10 +40,10 @@ namespace probleme
             try
             {
                 connection.Open();
-                OleDbCommand command = new OleDbCommand();
-                command.Connection=connection;
-                command.CommandText = "SELECT * FROM Masini";
-                reader = command.ExecuteReader();
+                OleDbCommand comand = new OleDbCommand();
+                comand.Connection = connection;
+                comand.CommandText = "SELECT * FROM Masini";
+                reader = comand.ExecuteReader();
                 datatable = new DataTable("Cars");
                 datatable.Load(reader);
                 dataset = new DataSet();
