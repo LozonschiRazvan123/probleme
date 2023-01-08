@@ -55,6 +55,7 @@
             this.form1ToolStripMenuItem.Name = "form1ToolStripMenuItem";
             this.form1ToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.form1ToolStripMenuItem.Text = "Form1";
+            this.form1ToolStripMenuItem.Click += new System.EventHandler(this.form1ToolStripMenuItem_Click);
             // 
             // form2ToolStripMenuItem
             // 
@@ -68,6 +69,7 @@
             this.form3ToolStripMenuItem.Name = "form3ToolStripMenuItem";
             this.form3ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.form3ToolStripMenuItem.Text = "Form3";
+            this.form3ToolStripMenuItem.Click += new System.EventHandler(this.form3ToolStripMenuItem_Click);
             // 
             // form4ToolStripMenuItem
             // 

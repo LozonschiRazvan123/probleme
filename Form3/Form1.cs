@@ -12,5 +12,16 @@ namespace Form3
             Form2 newForm = new Form2();
             newForm.Show();
         }
+
+        private void form1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void form3ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form3 newForm = new Form3();
+            newForm.Show();
+        }
     }
 }

@@ -62,6 +62,7 @@
             this.ClientSize = new System.Drawing.Size(830, 358);
             this.Controls.Add(this.label2);
             this.Name = "Form2";
+            this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
